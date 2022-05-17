@@ -26,3 +26,6 @@ El valor principal de nuestro producto es el hecho de que cuando el usuario se a
 
 Nuestro Administrador de Gastos, destaca del resto ya que principalmente, al estar en una web, es accesible desde cualquier dispositivo con acceso a internet; pero además, cuando el usuario está aproximandose al limite o limites que estableció, se le será comunicado a través de un medio a elección.
 
+## Install´s
+
+npm i mocha morgan supertest express
