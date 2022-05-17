@@ -1,6 +1,6 @@
-# API - Administrador de gastos
+# API - TP Integrador - Administrador de gastos
 
-## Grupo nro X // Np sabemos que grupo somos ツ
+## Grupo nro X // No sabemos que grupo somos ツ
 
 ## Integrantes
 
