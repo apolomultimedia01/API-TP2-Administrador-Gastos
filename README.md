@@ -7,6 +7,7 @@
 - Tamara Lach
 - Luciano Gobo
 - Boris Salinas
+- Alejandro Durán
 
 ## Descripcion del Proyecto
 

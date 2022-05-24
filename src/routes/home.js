@@ -11,17 +11,26 @@ router.get("/asignarSueldo", (req, res) => {
     return res.json("OK asignarSueldo");
 });
 
-router.get("/asignarSueldo/", (req, res) => {
+router.post("/asignarSueldo/", (req, res) => {
 
-    const { sueldo } = json(req.body)
+    const { sueldo } = req.body
     if (sueldo > 0) {
-        return res.status(201).json('Sueldo asignado con exito!')
+        return res.status(201).json({mensaje: 'Sueldo asignado con exito!'})
     }
-    res.status(400).json('El sueldo no puede ser negativo.')
+    res.status(400).json({mensaje:'El sueldo no puede ser negativo.'})
 });
 
 router.get("/agregarGasto", (req, res) => {
     return res.json("OK agregarGasto");
+});
+
+router.post("/agregarGasto/", (req, res) => {
+    const gasto  = req.body
+    if (gasto.importe > 0 && gasto.categoria != null && gasto.descripcion != null ) {
+        lista.push(gasto)
+        return res.status(201).json({mensaje: 'Sueldo asignado con exito!'})
+    }
+    res.status(400).json({mensaje:'El sueldo no puede ser negativo.'})
 });
 
 router.get("/agregarDinero", (req, res) => {
