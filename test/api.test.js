@@ -1,31 +1,9 @@
-const res = require("express/lib/response");
+// const res = require("express/lib/response");
 const request = require("supertest");
 
 const app = require("../src/app");
 
 describe("Administrador de Gastos", () => {
-  describe("GETS - Codigo 200", () => {
-    it("Home", (done) => {
-      request(app).get("/").expect(200, done);
-    });
-
-    it("Asignar Sueldo", (done) => {
-      request(app).get("/asignarsueldo").expect(200, done);
-    });
-
-    it("Agregar Gasto", (done) => {
-      request(app).get("/agregarGasto").expect(200, done);
-    });
-
-    it("Agregar Dinero", (done) => {
-      request(app).get("/agregarDinero").expect(200, done);
-    });
-
-    it("Crear Cuenta", (done) => {
-      request(app).get("/crearCuenta").expect(200, done);
-    });
-  });
-
   describe("Corroboracion de datos", () => {
     it("Recibe un array", (done) => {
       request(app)
@@ -40,7 +18,7 @@ describe("Administrador de Gastos", () => {
       };
 
       request(app)
-        .post("/asignarSueldo/")
+        .post("/sueldo/")
         .send(data)
         .set("Accept", "application/json")
         .expect(201, done);
@@ -52,12 +30,12 @@ describe("Administrador de Gastos", () => {
       };
 
       request(app)
-        .post("/asignarSueldo/")
+        .post("/sueldo/")
         .send(data)
         .expect(400, done);
     });
 
-    it("agregamos un gasto lleno", (done) => {
+    it("Agregamos un gasto lleno", (done) => {
       const data = {
         importe: 1000,
         categoria: 'comida',
@@ -65,11 +43,11 @@ describe("Administrador de Gastos", () => {
       };
 
       request(app)
-        .post("/agregarGasto/")
+        .post("/gasto/")
         .send(data)
         .expect(201, done)
     });
-    it("agregamos un gasto vacio", (done) => {
+    it("Agregamos un gasto vacio", (done) => {
       const data = {
         importe: -1000,
         categoria: null,
@@ -77,12 +55,12 @@ describe("Administrador de Gastos", () => {
       };
 
       request(app)
-        .post("/agregarGasto/")
+        .post("/gasto/")
         .send(data)
         .expect(400, done);
     });
 
-    it("chequear el gasto agregado", (done) => {
+    it("Chequear el gasto agregado", (done) => {
       const data = {
         importe: 1000,
         categoria: 'comida',
@@ -95,7 +73,7 @@ describe("Administrador de Gastos", () => {
         .expect(200, done);
     });
     
-    it("Login exitoso", (done) => {
+    it("Login Exitoso", (done) => {
       const usuario = {
         user: 'cuchau',
         pass: 'Rayo95'
