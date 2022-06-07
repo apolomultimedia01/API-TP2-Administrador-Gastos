@@ -20,7 +20,6 @@ El valor principal de nuestro producto es el hecho de que cuando el usuario se a
 - Asignar sueldo 
 - Establecer limites
 - Agregar movimientos (Tanto gastos como ingresos de dinero)
-- Agregar usuarios (colaboradores) a un administrador de gastos
 - Enviar advertencia (email, SMS, telegram, etc. Optativo) al aproximarse a los limites establecidos anteriormente.
 
 ## Reglas de negocio

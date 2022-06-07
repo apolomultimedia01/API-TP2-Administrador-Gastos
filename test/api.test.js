@@ -57,7 +57,7 @@ describe("Administrador de Gastos", () => {
         .expect(400, done);
     });
 
-    it("agregamos un gasto", (done) => {
+    it("agregamos un gasto lleno", (done) => {
       const data = {
         importe: 1000,
         categoria: 'comida',
@@ -67,7 +67,19 @@ describe("Administrador de Gastos", () => {
       request(app)
         .post("/agregarGasto/")
         .send(data)
-        .expect(201, done);
+        .expect(201, done)
+    });
+    it("agregamos un gasto vacio", (done) => {
+      const data = {
+        importe: -1000,
+        categoria: null,
+        descripcion: null,
+      };
+
+      request(app)
+        .post("/agregarGasto/")
+        .send(data)
+        .expect(400, done);
     });
 
     it("chequear el gasto agregado", (done) => {
@@ -81,6 +93,30 @@ describe("Administrador de Gastos", () => {
         .get('/')
         .expect([data])
         .expect(200, done);
+    });
+    
+    it("Login exitoso", (done) => {
+      const usuario = {
+        user: 'cuchau',
+        pass: 'Rayo95'
+      };
+
+      request(app)
+        .post('/login')
+        .send(usuario)
+        .expect(202, done);
+    });
+    
+    it("Login Denegado", (done) => {
+      const usuario = {
+        user: 'cachicka',
+        pass: 'trueno'
+      };
+
+      request(app)
+        .post('/login')
+        .send(usuario)
+        .expect(401, done);
     });
   });
 });

@@ -2,6 +2,21 @@ const { Router } = require('express')
 const router = Router()
 
 const lista = [];
+const master = {
+    user: 'cuchau',
+    pass: 'Rayo95'
+}
+
+router.post('/login', (req, res) => {
+    const { user } = req.body
+    const { pass } = req.body
+
+    if(user == master.user && pass == master.pass){
+        return res.status(202).json({mensaje: 'Usuario Aceptado'})
+    }
+
+    return res.status(401).json({mensaje: 'Usuario No Autorizado'})
+})
 
 router.get('/', (req, res) => {
     return res.json(lista)
