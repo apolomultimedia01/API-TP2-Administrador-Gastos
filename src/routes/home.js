@@ -6,6 +6,7 @@ const master = {
     user: 'cuchau',
     pass: 'Rayo95'
 }
+const listaUsuarios = [master];
 
 
 // Idear un login con un middleware
@@ -18,6 +19,26 @@ router.post('/login', (req, res) => {
     }
 
     return res.status(401).json({mensaje: 'Usuario No Autorizado'})
+})
+
+router.get('/users', (req, res) => {
+    return res.json(listaUsuarios)
+})
+
+router.post('/register', (req,res) => {
+    const { user } = req.body
+    const { pass } = req.body
+
+    if(user != null && pass != null){
+        if(!listaUsuarios.find(us => us.user == user)){
+            listaUsuarios.push({user:user, pass:pass})
+            return res.status(201).json({mensaje: 'Usuario Registrado'})
+        }else{
+            return res.status(403).json({mensaje: 'Usuario Ya Existe'})
+        }
+    }else{
+        return res.status(400).json({mensaje: 'Datos Invalidos'})
+    }
 })
 
 router.get('/', (req, res) => {

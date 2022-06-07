@@ -59,7 +59,6 @@ describe("Administrador de Gastos", () => {
         .send(data)
         .expect(400, done);
     });
-
     it("Chequear el gasto agregado", (done) => {
       const data = {
         importe: 1000,
@@ -72,7 +71,8 @@ describe("Administrador de Gastos", () => {
         .expect([data])
         .expect(200, done);
     });
-    
+  });
+  describe("Datos de Login", ()=>{
     it("Login Exitoso", (done) => {
       const usuario = {
         user: 'cuchau',
@@ -97,4 +97,55 @@ describe("Administrador de Gastos", () => {
         .expect(401, done);
     });
   });
+  describe("Datos de Registro", () =>{
+    
+    it("Register Aceptado", (done) => {
+      const usuario = {
+        user: 'Ben',
+        pass: 'bestia'
+      };
+
+      request(app)
+        .post('/register')
+        .send(usuario)
+        .expect(201, done);
+    });
+    it("Register Denegado (usuario existe)", (done) => {
+      const usuario = {
+        user: 'cuchau',
+        pass: 'Rayo95'
+      };
+
+      request(app)
+        .post('/register')
+        .send(usuario)
+        .expect(403, done);
+    });
+    it("Register Denegado (datos invalidos)", (done) => {
+      const usuario = {
+        user: null,
+        pass: null
+      };
+
+      request(app)
+        .post('/register')
+        .send(usuario)
+        .expect(400, done);
+    });
+    it("Usuario agregado a la lista", (done) => {
+      const usuario = {
+        user: 'Ben',
+        pass: 'bestia'
+      };
+      const master = {
+        user: 'cuchau',
+        pass: 'Rayo95'
+      };
+
+      request(app)
+        .get('/users')
+        .expect([master, usuario])
+        .expect(200, done);
+    });
+  })
 });
