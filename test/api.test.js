@@ -1,7 +1,7 @@
-// const res = require("express/lib/response");
 const request = require("supertest");
 
 const app = require("../src/app");
+
 
 describe("Administrador de Gastos", () => {
   describe("Corroboracion de datos", () => {
