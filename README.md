@@ -19,7 +19,7 @@ El valor principal de nuestro producto es el hecho de que cuando el usuario se a
 - Crear cuenta
 - Asignar sueldo 
 - Establecer limites
-- Agregar movimientos (Tanto gastos como ingresos de dinero)
+- Agregar movimientos
 - Enviar advertencia (email, SMS, telegram, etc. Optativo) al aproximarse a los limites establecidos anteriormente.
 
 ## Reglas de negocio
