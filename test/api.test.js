@@ -38,8 +38,8 @@ describe("Administrador de Gastos", () => {
     it("Agregamos un gasto lleno", (done) => {
       const data = {
         importe: 1000,
-        categoria: 'comida',
         descripcion: 'burger',
+        categoria: 'comida',
       };
 
       request(app)
@@ -75,8 +75,8 @@ describe("Administrador de Gastos", () => {
   describe("Datos de Login", ()=>{
     it("Login Exitoso", (done) => {
       const usuario = {
-        user: 'cuchau',
-        pass: 'Rayo95'
+        user: 'Master',
+        pass: '123456'
       };
 
       request(app)
