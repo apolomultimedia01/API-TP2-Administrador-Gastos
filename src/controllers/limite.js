@@ -1,4 +1,4 @@
-let { limite }  = require('../models/limite')
+let { limite }  = require('../repositories/limite')
 const { listaGastos } = require('../repositories/gastos')
 const gasto = require('./gasto')
 

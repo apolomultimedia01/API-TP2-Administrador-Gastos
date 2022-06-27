@@ -11,7 +11,7 @@ describe("Administrador de Gastos", () => {
         .expect([])
         .expect(200, done);
     });
-    it("Creamos un limite (NUEVO) ", (done) => {
+    it("Creamos un limite (*NUEVO*) ", (done) => {
       const data = {
         limiteCreado: 10000,
       }
@@ -57,7 +57,7 @@ describe("Administrador de Gastos", () => {
       .expect(201, done)
     });
     
-    it("Agregamos un gasto exorbitante que supere el limite (NUEVO)", (done) => {
+    it("Agregamos un gasto exorbitante que supere el limite (*NUEVO*)", (done) => {
       const data = {
         importe: 10000000,
         categoria: 'plei 5',
@@ -93,13 +93,13 @@ describe("Administrador de Gastos", () => {
         .expect([data])
         .expect(200, done);
     });
-    it("Borrar Gasto (NUEVO)", (done) => {
+    it("Borrar Gasto (*NUEVO*)", (done) => {
 
       request(app)
         .delete('/gasto/burger')
         .expect(200, done)
     });
-    it("Chequear gasto borrado (NUEVO) ", (done) => {
+    it("Chequear gasto borrado (*NUEVO*) ", (done) => {
 
       request(app)
         .get('/')
