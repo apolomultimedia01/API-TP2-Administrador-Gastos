@@ -1,9 +1,9 @@
 const Usuario = require("../models/usuario");
 const master = require('../models/master')
-const { usuarios } = require("../repositories/usuarios");
+const { listaUsuarios } = require("../repositories/usuarios");
 
 const misUsuarios = function (__, res) {
-  let users = usuarios;
+  let users = listaUsuarios;
 
   res.json(users);
 };
@@ -12,10 +12,10 @@ module.exports = {
   getUsuarios: misUsuarios,
 
   loginUsuario: function (req, res) {
-    const { user } = req.body;
-    const { pass } = req.body;
+    const { usuario } = req.body;
+    const { contrasenia } = req.body;
 
-    if (user == master.user && pass == master.pass) {
+    if (usuario == master.usuario && contrasenia == master.contrasenia) {
       return res.status(202).json({ mensaje: "Usuario Aceptado" });
     }
 
@@ -23,13 +23,13 @@ module.exports = {
   },
 
   registerUsuario: function (req, res) {
-    const { user } = req.body;
-    const { pass } = req.body;
+    const { usuario } = req.body;
+    const { contrasenia } = req.body;
   
-    if (user != null && pass != null) {
-      if (!usuarios.find((us) => us.user == user)) {
-        const nuevoUser = new Usuario(user, pass)
-        usuarios.push(nuevoUser);
+    if (usuario != null && contrasenia != null) {
+      if (!listaUsuarios.find(us => us.usuario == usuario)) {
+        const nuevoUsuario = new Usuario(usuario, contrasenia)
+        listaUsuarios.push(nuevoUsuario);
         return res.status(201).json({ mensaje: "Usuario Registrado" });
       } else {
         return res.status(403).json({ mensaje: "Usuario Ya Existe" });
