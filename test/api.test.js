@@ -75,12 +75,12 @@ describe("Administrador de Gastos", () => {
   describe("Datos de Login", ()=>{
     it("Login Exitoso", (done) => {
       const usuario = {
-        user: 'Master',
-        pass: '123456'
+        usuario: 'Master',
+        contrasenia: '123456'
       };
 
       request(app)
-        .post('/login')
+        .post('/users/login')
         .send(usuario)
         .expect(202, done);
     });
@@ -92,7 +92,7 @@ describe("Administrador de Gastos", () => {
       };
 
       request(app)
-        .post('/login')
+        .post('/users/login')
         .send(usuario)
         .expect(401, done);
     });
@@ -101,45 +101,45 @@ describe("Administrador de Gastos", () => {
     
     it("Register Aceptado", (done) => {
       const usuario = {
-        user: 'Ben',
-        pass: 'bestia'
+        usuario: 'Ben',
+        contrasenia: 'bestia'
       };
 
       request(app)
-        .post('/register')
+        .post('/users/register')
         .send(usuario)
         .expect(201, done);
     });
     it("Register Denegado (usuario existe)", (done) => {
       const usuario = {
-        user: 'cuchau',
-        pass: 'Rayo95'
+        usuario: 'Master',
+        contrasenia: '123456'
       };
 
       request(app)
-        .post('/register')
+        .post('/users/register')
         .send(usuario)
         .expect(403, done);
     });
     it("Register Denegado (datos invalidos)", (done) => {
       const usuario = {
-        user: null,
-        pass: null
+        usuario: null,
+        contrasenia: null
       };
 
       request(app)
-        .post('/register')
+        .post('/users/register')
         .send(usuario)
         .expect(400, done);
     });
     it("Usuario agregado a la lista", (done) => {
       const usuario = {
-        user: 'Ben',
-        pass: 'bestia'
+        usuario: 'Ben',
+        contrasenia: 'bestia'
       };
       const master = {
-        user: 'cuchau',
-        pass: 'Rayo95'
+        usuario: 'Master',
+        contrasenia: '123456'
       };
 
       request(app)
