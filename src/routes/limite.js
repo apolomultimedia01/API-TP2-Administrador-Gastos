@@ -1,8 +1,6 @@
 const { Router } = require("express");
-const { limite } = require('../repositories/limite')
 const router = Router();
-const { checkLimite, createLimite } = require('../controllers/limite')  
-const { listaGastos } = require('../repositories/gastos')
+const { createLimite } = require('../controllers/limite')  
 
 router.post("/",createLimite);
 

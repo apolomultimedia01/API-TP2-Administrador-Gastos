@@ -1,6 +1,6 @@
 let { limite }  = require('../repositories/limite')
 const { listaGastos } = require('../repositories/gastos')
-const gasto = require('./gasto')
+// const gasto = require('./gasto')
 
 function checkLimite(gastoAgregar){
     let total = 0
