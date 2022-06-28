@@ -1,31 +1,9 @@
-const res = require("express/lib/response");
 const request = require("supertest");
 
 const app = require("../src/app");
 
+
 describe("Administrador de Gastos", () => {
-  describe("GETS - Codigo 200", () => {
-    it("Home", (done) => {
-      request(app).get("/").expect(200, done);
-    });
-
-    it("Asignar Sueldo", (done) => {
-      request(app).get("/asignarsueldo").expect(200, done);
-    });
-
-    it("Agregar Gasto", (done) => {
-      request(app).get("/agregarGasto").expect(200, done);
-    });
-
-    it("Agregar Dinero", (done) => {
-      request(app).get("/agregarDinero").expect(200, done);
-    });
-
-    it("Crear Cuenta", (done) => {
-      request(app).get("/crearCuenta").expect(200, done);
-    });
-  });
-
   describe("Corroboracion de datos", () => {
     it("Recibe un array", (done) => {
       request(app)
@@ -33,43 +11,65 @@ describe("Administrador de Gastos", () => {
         .expect([])
         .expect(200, done);
     });
-
+    it("Creamos un limite (*NUEVO*) ", (done) => {
+      const data = {
+        limiteCreado: 10000,
+      }
+      request(app)
+        .post("/limite/")
+        .send(data)
+        .expect(201, done);
+    });
+    
     it("Envia un sueldo positivo", (done) => {
       const data = {
         sueldo: 1000,
       };
-
+      
       request(app)
-        .post("/asignarSueldo/")
-        .send(data)
-        .set("Accept", "application/json")
-        .expect(201, done);
+      .post("/sueldo/")
+      .send(data)
+      .set("Accept", "application/json")
+      .expect(201, done);
     });
-
+    
     it("Envia un sueldo negativo", (done) => {
       const data = {
         sueldo: -2,
       };
-
+      
       request(app)
-        .post("/asignarSueldo/")
-        .send(data)
-        .expect(400, done);
+      .post("/sueldo/")
+      .send(data)
+      .expect(400, done);
     });
-
-    it("agregamos un gasto lleno", (done) => {
+    
+    it("Agregamos un gasto lleno", (done) => {
       const data = {
         importe: 1000,
-        categoria: 'comida',
         descripcion: 'burger',
+        categoria: 'comida',
       };
-
+      
       request(app)
-        .post("/agregarGasto/")
-        .send(data)
-        .expect(201, done)
+      .post("/gasto/")
+      .send(data)
+      .expect(201, done)
     });
-    it("agregamos un gasto vacio", (done) => {
+    
+    it("Agregamos un gasto exorbitante que supere el limite (*NUEVO*)", (done) => {
+      const data = {
+        importe: 10000000,
+        categoria: 'plei 5',
+        descripcion: 'gaming',
+      }
+      request(app)
+        .post("/gasto/")
+        .send(data)
+        .expect(422, done);
+    });
+
+    it("Agregamos un gasto vacio", (done) => {
       const data = {
         importe: -1000,
         categoria: null,
@@ -77,12 +77,11 @@ describe("Administrador de Gastos", () => {
       };
 
       request(app)
-        .post("/agregarGasto/")
+        .post("/gasto/")
         .send(data)
         .expect(400, done);
     });
-
-    it("chequear el gasto agregado", (done) => {
+    it("Chequear el gasto agregado", (done) => {
       const data = {
         importe: 1000,
         categoria: 'comida',
@@ -94,15 +93,29 @@ describe("Administrador de Gastos", () => {
         .expect([data])
         .expect(200, done);
     });
-    
-    it("Login exitoso", (done) => {
+    it("Borrar Gasto (*NUEVO*)", (done) => {
+
+      request(app)
+        .delete('/gasto/burger')
+        .expect(200, done)
+    });
+    it("Chequear gasto borrado (*NUEVO*) ", (done) => {
+
+      request(app)
+        .get('/')
+        .expect([])
+        .expect(200, done)
+    });
+  });
+  describe("Datos de Login", ()=>{
+    it("Login Exitoso", (done) => {
       const usuario = {
-        user: 'cuchau',
-        pass: 'Rayo95'
+        usuario: 'Master',
+        contrasenia: '123456'
       };
 
       request(app)
-        .post('/login')
+        .post('/users/login')
         .send(usuario)
         .expect(202, done);
     });
@@ -114,9 +127,60 @@ describe("Administrador de Gastos", () => {
       };
 
       request(app)
-        .post('/login')
+        .post('/users/login')
         .send(usuario)
         .expect(401, done);
     });
   });
+  describe("Datos de Registro", () =>{
+    
+    it("Register Aceptado", (done) => {
+      const usuario = {
+        usuario: 'Ben',
+        contrasenia: 'bestia'
+      };
+
+      request(app)
+        .post('/users/register')
+        .send(usuario)
+        .expect(201, done);
+    });
+    it("Register Denegado (usuario existe)", (done) => {
+      const usuario = {
+        usuario: 'Master',
+        contrasenia: '123456'
+      };
+
+      request(app)
+        .post('/users/register')
+        .send(usuario)
+        .expect(403, done);
+    });
+    it("Register Denegado (datos invalidos)", (done) => {
+      const usuario = {
+        usuario: null,
+        contrasenia: null
+      };
+
+      request(app)
+        .post('/users/register')
+        .send(usuario)
+        .expect(400, done);
+    });
+    it("Usuario agregado a la lista", (done) => {
+      const usuario = {
+        usuario: 'Ben',
+        contrasenia: 'bestia'
+      };
+      const master = {
+        usuario: 'Master',
+        contrasenia: '123456'
+      };
+
+      request(app)
+        .get('/users')
+        .expect([master, usuario])
+        .expect(200, done);
+    });
+  })
 });
