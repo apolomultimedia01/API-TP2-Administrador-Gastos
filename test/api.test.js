@@ -66,7 +66,7 @@ describe("Administrador de Gastos", () => {
       request(app)
         .post("/gasto/")
         .send(data)
-        .expect(400, done);
+        .expect(422, done);
     });
 
     it("Agregamos un gasto vacio", (done) => {

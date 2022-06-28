@@ -18,7 +18,7 @@ module.exports = {
         listaGastos.push(gasto);
         return res.status(201).json({ mensaje: "Gasto creado con exito!" });
       }else{
-        return res.status(400).json({mensaje: "Limite alcanzado o superado"})
+        return res.status(422).json({mensaje: "Limite alcanzado o superado"})
       }
     }
     return res.status(400).json({ mensaje: "Gasto inválido!" });

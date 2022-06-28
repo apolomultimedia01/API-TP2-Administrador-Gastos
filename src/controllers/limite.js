@@ -21,7 +21,7 @@ module.exports = {
             limite = limiteCreado;
             return res.status(201).json({msg: "Limite seteado exitosamente"})
         }else{
-            return res.status(400).json({msg: "Limite inválido"})
+            return res.status(422).json({msg: "Limite inválido"})
         }
 
     }
